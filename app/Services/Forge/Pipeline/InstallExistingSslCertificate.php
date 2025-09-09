@@ -18,23 +18,27 @@ use App\Traits\Outputifier;
 use Closure;
 use Throwable;
 
-class ObtainLetsEncryptCertification
+class InstallExistingSslCertificate
 {
     use Outputifier;
 
     public function __invoke(ForgeService $service, Closure $next)
     {
-        if (! $service->setting->sslRequired || ! $service->siteNewlyMade || $service->setting->sslInstallExisting) {
+        if (! $service->setting->sslRequired || ! $service->siteNewlyMade || ! $service->setting->sslInstallExisting) {
             return $next($service);
         }
 
-        $this->information('Processing SSL certificate operations.');
+        $this->information('Installing existing SSL certificate.');
 
         try {
-            $service->forge->obtainLetsEncryptCertificate(
+            $service->forge->createCertificate(
                 $service->server->id,
                 $service->site->id,
-                ['domains' => [$service->site->name]],
+                [
+                    'type' => 'existing',
+                    'key' => $service->setting->sslExistingPrivateKey,
+                    'certificate' => $service->setting->sslExistingCertificate,
+                ],
                 $service->setting->waitOnSsl
             );
         } catch (Throwable $e) {

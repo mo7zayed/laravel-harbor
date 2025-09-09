@@ -170,6 +170,21 @@ class ForgeSetting
     public bool $waitOnSsl;
 
     /**
+     * Flag to install an existing SSL certificate.
+     */
+    public bool $sslInstallExisting;
+
+    /**
+     * The path to the existing SSL certificate file.
+     */
+    public ?string $sslExistingCertificate;
+
+    /**
+     * The path to the existing SSL private key file.
+     */
+    public ?string $sslExistingPrivateKey;
+
+    /**
      * Git token.
      */
     public ?string $gitToken;
@@ -280,6 +295,9 @@ class ForgeSetting
             'auto_source_required' => ['boolean'],
             'ssl_required' => ['boolean'],
             'wait_on_ssl' => ['boolean'],
+            'ssl_install_existing' => ['boolean'],
+            'ssl_existing_certificate' => ['nullable', 'string'],
+            'ssl_existing_private_key' => ['nullable', 'string'],
             'wait_on_deploy' => ['boolean'],
             'timeout_seconds' => ['required', 'int', 'min:0'],
             'git_comment_enabled' => ['required', 'boolean'],
