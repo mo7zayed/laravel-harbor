@@ -30,6 +30,11 @@ class InstallExistingSslCertificate
 
         $this->information('Installing existing SSL certificate.');
 
+        dump([
+            'certificate' => $service->setting->sslExistingCertificate,
+            'private_key' => $service->setting->sslExistingPrivateKey,
+        ]);
+
         try {
             $certificate = $service->forge->createCertificate(
                 $service->server->id,
