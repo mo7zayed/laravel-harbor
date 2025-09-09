@@ -39,7 +39,7 @@ class ObtainLetsEncryptCertification
             );
         } catch (Throwable $e) {
             $this->failCommand("---> Something's wrong with SSL certification. Check your Forge site Log for more info.");
-            $this->failCommand($e->getMessage());
+            $this->failCommand("---> " . $e->getMessage());
         }
 
         return $next($service);
