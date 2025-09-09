@@ -31,12 +31,14 @@ class ObtainLetsEncryptCertification
         $this->information('Processing SSL certificate operations.');
 
         try {
-            $service->forge->obtainLetsEncryptCertificate(
-                $service->server->id,
-                $service->site->id,
-                ['domains' => [$service->site->name]],
-                $service->setting->waitOnSsl
-            );
+            retry(3, function () use ($service) {
+                $service->forge->obtainLetsEncryptCertificate(
+                    $service->server->id,
+                    $service->site->id,
+                    ['domains' => [$service->site->name]],
+                    $service->setting->waitOnSsl
+                );
+            }, 5000);
         } catch (Throwable $e) {
             $this->failCommand("---> Something's wrong with SSL certification. Check your Forge site Log for more info.");
             $this->failCommand("---> " . $e->getMessage());
