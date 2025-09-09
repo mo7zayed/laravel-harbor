@@ -13,30 +13,31 @@ declare(strict_types=1);
 
 namespace App\Commands;
 
-use App\Services\Forge\ForgeService;
-use App\Services\Forge\Pipeline\AnnounceSiteOnSlack;
-use App\Services\Forge\Pipeline\CreateDaemons;
-use App\Services\Forge\Pipeline\CreateDatabase;
-use App\Services\Forge\Pipeline\CreateQueueWorkers;
-use App\Services\Forge\Pipeline\CreateWebhook;
-use App\Services\Forge\Pipeline\DeploySite;
-use App\Services\Forge\Pipeline\EnableInertiaSupport;
-use App\Services\Forge\Pipeline\EnableQuickDeploy;
-use App\Services\Forge\Pipeline\EnsureJobScheduled;
-use App\Services\Forge\Pipeline\FindServer;
-use App\Services\Forge\Pipeline\FindSite;
-use App\Services\Forge\Pipeline\InstallExistingSslCertificate;
-use App\Services\Forge\Pipeline\InstallGitRepository;
-use App\Services\Forge\Pipeline\NginxTemplateSearchReplace;
-use App\Services\Forge\Pipeline\ObtainLetsEncryptCertification;
-use App\Services\Forge\Pipeline\OrCreateNewSite;
-use App\Services\Forge\Pipeline\PutCommentOnPullRequest;
-use App\Services\Forge\Pipeline\RunOptionalCommands;
-use App\Services\Forge\Pipeline\UpdateDeployScript;
-use App\Services\Forge\Pipeline\UpdateEnvironmentVariables;
 use App\Traits\Outputifier;
+use App\Services\Forge\ForgeService;
 use Illuminate\Support\Facades\Pipeline;
+use App\Services\Forge\Pipeline\FindSite;
+use App\Services\Forge\Pipeline\DeploySite;
+use App\Services\Forge\Pipeline\FindServer;
 use LaravelZero\Framework\Commands\Command;
+use App\Services\Forge\Pipeline\CreateDaemons;
+use App\Services\Forge\Pipeline\CreateWebhook;
+use App\Services\Forge\Pipeline\CreateDatabase;
+use App\Services\Forge\Pipeline\OrCreateNewSite;
+use App\Services\Forge\Pipeline\EnableQuickDeploy;
+use App\Services\Forge\Pipeline\CreateQueueWorkers;
+use App\Services\Forge\Pipeline\EnsureJobScheduled;
+use App\Services\Forge\Pipeline\UpdateDeployScript;
+use App\Services\Forge\Pipeline\AnnounceSiteOnSlack;
+use App\Services\Forge\Pipeline\RestartQueueWorkers;
+use App\Services\Forge\Pipeline\RunOptionalCommands;
+use App\Services\Forge\Pipeline\EnableInertiaSupport;
+use App\Services\Forge\Pipeline\InstallGitRepository;
+use App\Services\Forge\Pipeline\PutCommentOnPullRequest;
+use App\Services\Forge\Pipeline\NginxTemplateSearchReplace;
+use App\Services\Forge\Pipeline\UpdateEnvironmentVariables;
+use App\Services\Forge\Pipeline\InstallExistingSslCertificate;
+use App\Services\Forge\Pipeline\ObtainLetsEncryptCertification;
 
 class ProvisionCommand extends Command
 {
@@ -67,6 +68,7 @@ class ProvisionCommand extends Command
                 EnsureJobScheduled::class,
                 CreateDaemons::class,
                 CreateQueueWorkers::class,
+                RestartQueueWorkers::class,
                 PutCommentOnPullRequest::class,
                 AnnounceSiteOnSlack::class,
                 EnableInertiaSupport::class,
