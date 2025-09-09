@@ -31,7 +31,9 @@ class InstallExistingSslCertificate
         $this->information('Installing existing SSL certificate.');
 
         try {
-            $service->forge->createCertificate(
+            $this->information('Creating existing SSL certificate.');
+
+            $certificate = $service->forge->createCertificate(
                 $service->server->id,
                 $service->site->id,
                 [
@@ -39,6 +41,15 @@ class InstallExistingSslCertificate
                     'key' => $service->setting->sslExistingPrivateKey,
                     'certificate' => $service->setting->sslExistingCertificate,
                 ],
+                $service->setting->waitOnSsl
+            );
+
+            $this->information('Activating existing SSL certificate.');
+
+            $service->forge->activateCertificate(
+                $service->server->id,
+                $service->site->id,
+                $certificate->id,
                 $service->setting->waitOnSsl
             );
 
