@@ -14,7 +14,7 @@ class RestartQueueWorkers
 
     public function __invoke(ForgeService $service, Closure $next)
     {
-        if (! $service->setting->queueWorkers || $service->siteNewlyMade) {
+        if ($service->siteNewlyMade) {
             return $next($service);
         }
 
