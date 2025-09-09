@@ -31,7 +31,7 @@ class InstallExistingSslCertificate
         $this->information('Installing existing SSL certificate.');
 
         try {
-            $certificate = $service->forge->createCertificate(
+            $service->forge->createCertificate(
                 $service->server->id,
                 $service->site->id,
                 [
@@ -43,16 +43,6 @@ class InstallExistingSslCertificate
             );
 
             $this->information('Existing SSL certificate installed successfully.');
-            $this->information('SSL Certificate ID: ' . $certificate->id);
-            $this->information('Server ID: ' . $certificate->serverId);
-            $this->information('Site ID: ' . $certificate->siteId);
-            $this->information('SSL Certificate Domain: ' . $certificate->domain);
-            $this->information('SSL Certificate Type: ' . $certificate->type);
-            $this->information('SSL Certificate Request Status: ' . $certificate->requestStatus);
-            $this->information('SSL Certificate Status: ' . $certificate->status);
-            $this->information('SSL Certificate Active: ' . $certificate->active);
-            $this->information('SSL Certificate Activation Status: ' . $certificate->activationStatus);
-            $this->information('SSL Certificate Created At: ' . $certificate->createdAt);
         } catch (Throwable $e) {
             $this->failCommand("---> Something's wrong with SSL certification. Check your Forge site Log for more info.");
             $this->failCommand("---> " . get_class($e) . ": " . $e->getMessage());
