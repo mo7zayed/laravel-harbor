@@ -86,10 +86,10 @@ return [
     'ssl_install_existing' => env('FORGE_SSL_INSTALL_EXISTING', false),
 
     // The path to the existing SSL certificate file.
-    'ssl_existing_certificate' => env('FORGE_SSL_EXISTING_CERTIFICATE_FILE', null),
+    'ssl_existing_certificate' => env('FORGE_SSL_EXISTING_CERTIFICATE', null),
 
     // The path to the existing SSL private key file.
-    'ssl_existing_private_key' => env('FORGE_SSL_EXISTING_PRIVATE_KEY_FILE', null),
+    'ssl_existing_private_key' => env('FORGE_SSL_EXISTING_PRIVATE_KEY', null),
 
     // Flag to pause until site deployment completes during provisioning (default: true).
     'wait_on_deploy' => env('FORGE_WAIT_ON_DEPLOY', true),
