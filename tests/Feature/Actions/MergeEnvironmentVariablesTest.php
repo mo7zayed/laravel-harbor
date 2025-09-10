@@ -74,4 +74,41 @@ it('it can merge custom variables with source environment variables securely', f
             ],
             'expected' => "APP_NAME=Laravel\n# Here be dragons\nAPP_ENV=local\n\n",
         ],
+        // Test cases for GitHub issue #127 - handling empty lines and malformed entries
+        [
+            'actual' => [
+                'source' => "APP_NAME=Laravel\n \n\t\nAPP_ENV=local\n",
+                'content' => [
+                    'APP_ENV' => 'staging',
+                ],
+            ],
+            'expected' => "APP_NAME=Laravel\n\n\nAPP_ENV=staging\n\n",
+        ],
+        [
+            'actual' => [
+                'source' => "APP_NAME=Laravel\nJUST_TEXT_NO_EQUALS\nAPP_ENV=local\n",
+                'content' => [
+                    'APP_ENV' => 'staging',
+                ],
+            ],
+            'expected' => "APP_NAME=Laravel\nAPP_ENV=staging\n\n",
+        ],
+        [
+            'actual' => [
+                'source' => "APP_NAME=Laravel\n\n\n\nAPP_ENV=local\n",
+                'content' => [
+                    'NEW_VAR' => 'new_value',
+                ],
+            ],
+            'expected' => "APP_NAME=Laravel\n\n\n\nAPP_ENV=local\n\nNEW_VAR=new_value\n",
+        ],
+        [
+            'actual' => [
+                'source' => "APP_NAME=Laravel\n   \n\t\t\n  \t  \nAPP_ENV=local\n",
+                'content' => [
+                    'APP_ENV' => 'production',
+                ],
+            ],
+            'expected' => "APP_NAME=Laravel\n\n\n\nAPP_ENV=production\n\n",
+        ],
     ]);
