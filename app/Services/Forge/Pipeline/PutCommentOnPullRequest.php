@@ -44,12 +44,13 @@ class PutCommentOnPullRequest
         $this->commentService->setEnvironmentUrl($service->getSiteLink());
 
         if ($service->setting->dbCreationRequired) {
-            $this->commentService->setDatabase(
-                $service->database['DB_DATABASE'],
-                $service->database['DB_USERNAME'],
-                $service->database['DB_PASSWORD'],
-                $service->server->ipAddress,
-            );
+            // Not needed for foodics use case.
+            // $this->commentService->setDatabase(
+            //     $service->database['DB_DATABASE'],
+            //     $service->database['DB_USERNAME'],
+            //     $service->database['DB_PASSWORD'],
+            //     $service->server->ipAddress,
+            // );
         }
 
         return $this->commentService->toMarkdown();
