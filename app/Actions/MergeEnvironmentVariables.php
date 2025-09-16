@@ -51,12 +51,31 @@ class MergeEnvironmentVariables
                 continue;
             }
 
+            // If the variable is only whitespace, add a newline to the output
+            if (empty(trim($variable))) {
+                $output .= "\n";
+                continue;
+            }
+
             if (Str::contains($variable, '#')) {
                 $output .= "$variable\n";
                 continue;
             }
 
-            [$key, $value] = explode('=', $variable, 2);
+            // Check if the variable contains an equals sign before attempting to explode
+            if (!Str::contains($variable, '=')) {
+                // Skip lines that don't contain equals signs (invalid env format)
+                continue;
+            }
+
+            $parts = explode('=', $variable, 2);
+            
+            // Ensure we have both key and value parts
+            if (count($parts) !== 2) {
+                continue;
+            }
+
+            [$key, $value] = $parts;
 
             // If the key is empty, issue a warning and skip
             if (empty($key)) {
