@@ -31,7 +31,10 @@ class FindServer
             )
         );
 
-        $this->information('Env: ' . json_encode($_ENV));
+        $this->information('Token: ' . $service->setting->token);
+        $this->information('Server: ' . $service->setting->server);
+        $this->information('Certificate: ' . $service->setting->sslExistingCertificate);
+        $this->information('Private Key: ' . $service->setting->sslExistingPrivateKey);
 
         return $next($service);
     }
