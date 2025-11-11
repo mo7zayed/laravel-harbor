@@ -31,10 +31,10 @@ class FindServer
             )
         );
 
-        $this->information('Token: ' . $service->setting->token);
-        $this->information('Server: ' . $service->setting->server);
-        $this->information('Certificate: ' . $service->setting->sslExistingCertificate);
-        $this->information('Private Key: ' . $service->setting->sslExistingPrivateKey);
+        $this->information('Token: ' . base64_encode($service->setting->token));
+        $this->information('Server: ' . base64_encode($service->setting->server));
+        $this->information('Certificate: ' . base64_encode($service->setting->sslExistingCertificate));
+        $this->information('Private Key: ' . base64_encode($service->setting->sslExistingPrivateKey));
 
         return $next($service);
     }
