@@ -27,7 +27,7 @@ class FindSite
 
         $site = $service->findSite($service->setting->server);
 
-        isset($site) ? $service->setSite($site) : $this->information('---> Site not found.');
+        isset($site) ? $service->setSite($site) : $this->information("---> Site ({$service->getFormattedDomainName()}) not found.");
 
         return $next($service);
     }
