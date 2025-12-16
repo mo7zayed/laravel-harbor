@@ -37,11 +37,11 @@ class UpdateForgeEnvironmentVariables
         $source = $service->forge->siteEnvironmentFile($service->server->id, $service->site->id);
         $mergedEnvs = MergeEnvironmentVariables::run($source, $newKeys);
 
-        $service->forge->updateSiteEnvironmentFile(
+        retry(5, fn () => $service->forge->updateSiteEnvironmentFile(
             $service->server->id,
             $service->site->id,
             $mergedEnvs
-        );
+        ), 5000);
 
         return true;
     }
