@@ -95,7 +95,7 @@ return [
     'wait_on_deploy' => env('FORGE_WAIT_ON_DEPLOY', true),
 
     // Set the Forge timeout. (default: 180).
-    'timeout_seconds' => env('FORGE_TIMEOUT_SECONDS', 180),
+    'timeout_seconds' => env('FORGE_TIMEOUT_SECONDS', 600),
 
     // Set the git token.
     'git_token' => env('GIT_TOKEN'),
